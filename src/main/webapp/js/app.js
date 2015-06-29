@@ -1,4 +1,4 @@
-var app = angular.module("geektic", ['ngRoute', 'GeekticCtrls']);
+var app = angular.module("geektic", ['ngRoute', 'autocomplete', 'GeekticCtrls']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/', {controller : "listGeeks", templateUrl : 'partials/geekList.html'})

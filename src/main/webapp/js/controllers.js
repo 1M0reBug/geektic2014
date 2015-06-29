@@ -5,7 +5,10 @@
 
 var GeekCtrls = angular.module('GeekticCtrls', []);
 
+/* geekList.html */
 GeekCtrls.controller('listGeeks', function($scope, $http, $location) {
+    $scope.selectedInterests = [];
+
     $scope.loadUsers = function() {
         $http.get('/api/users').success(function(user) {
             $scope.userList = user;
@@ -13,10 +16,46 @@ GeekCtrls.controller('listGeeks', function($scope, $http, $location) {
             $scope.userlist = "A problem occurred";
         });
     };
+
     $scope.showDetails = function(user) {
         console.log('coucou !');
         $location.path('/' + user.id);
     };
+
+    $scope.filterInterest = function(filter) {
+        var url = (filter) ? '/api/interests/value/'+filter : '/api/interests';
+        $http.get(url).then(function(interests) {
+            $scope.interests = [];
+            for(var interest in interests.data){
+                $scope.interests.push(interests.data[interest].value);
+            }
+        });
+    };
+
+    $scope.addElement = function(element) {
+        $scope.selectedInterests.push(element);
+    };
+
+    $scope.searchSelectedInterests = function() {
+        var interestsQueryString = $scope.selectedInterests.join(',');
+        var gender = $scope.query.gender;
+        var url = '';
+        var baseUrl = '/api/users';
+        if(interestsQueryString.length > 0){
+            url += baseUrl + '?interests=' + interestsQueryString;
+        }
+        if(gender == 'HOMME' || gender == 'FEMME') {
+            if(url.length == 0){
+                url += basUrl + '?gender=' + gender;
+            } else {
+                url += '&gender=' + gender;
+            }
+        }
+
+        $http.get(url).success(function(users) {
+            $scope.userList = users;
+        });
+    }
 
     $scope.loadUsers();
 });

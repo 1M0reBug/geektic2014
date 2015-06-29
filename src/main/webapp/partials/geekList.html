@@ -6,9 +6,15 @@
         <div class="col-sm-3">
             <input type="checkbox" ng-model="query.gender" ng-true-value="'FEMME'">Femme</input>
         </div>
-        <div class="col-sm-6">
-            <div ng-hide="!interestsQuery"></div>
-            <input type="text" class="form-control" ng-model="query.interests.value"  placeholder="filtrer par intérêts"/>
+        <div class="col-sm-4">
+            <div ng-hide="!selectedInterests">
+                <span ng-repeat="item in selectedInterests">{{item}} </span>
+            </div>
+
+            <autocomplete data="interests" on-type="filterInterest" on-select="addElement" ng-model="query.interests" attr-placeholder="filtrer par intérêts"></autocomplete>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-primary" ng-click="searchSelectedInterests()">Valider</button>
         </div>
     </div>
 </form>
@@ -21,7 +27,7 @@
         <th>Sexe</th>
         <th>Age</th>
     </tr>
-    <tr ng-repeat="user in userList | filter:query:filterInterests" ng-click="showDetails(user)">
+    <tr ng-repeat="user in userList" ng-click="showDetails(user)">
         <td><a ng-href="#/{{user.id}}">{{user.name}}</a></td>
         <td>{{user.surname}}</td>
         <td>

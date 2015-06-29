@@ -59,7 +59,7 @@ public class UserService {
         String interests = request.getParameter("interests");
         String stringGender = request.getParameter("gender");
         Gender gender = null;
-        if(stringGender != null) {
+        if (stringGender != null) {
             if (stringGender.equals("HOMME")) {
                 gender = Gender.HOMME;
             } else if (stringGender.equals("FEMME")) {
@@ -69,18 +69,18 @@ public class UserService {
 
         if (interests == null && gender == null) {
             return userDao.findAll();
-        } else if(gender == null){
+        } else if (gender == null) {
             String[] array;
             array = interests.split(",");
             List<User> list = userDao.findByInterestsValues(array);
-            if(list.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new InterestNotFound();
             } else {
                 return list;
             }
-        } else if(interests == null) {
+        } else if (interests == null) {
             List<User> list = userDao.findByGender(gender);
-            if(list.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new GenderNotFound();
             } else {
                 return list;
@@ -89,14 +89,13 @@ public class UserService {
             String[] array;
             array = interests.split(",");
             List<User> list = userDao.findByInterestsValuesAndGender(array, gender);
-            if(list.isEmpty()) {
+            if (list.isEmpty()) {
                 throw new InterestNotFound();
             } else {
                 return list;
             }
         }
     }
-
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

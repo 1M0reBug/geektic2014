@@ -38,4 +38,9 @@ public class InterestService {
     public List<Interest> findById(@PathVariable("id") long id) {
         return interestDao.listAll().stream().filter(i -> i.getId() == id).collect(Collectors.toList());
     }
+
+    @RequestMapping(value="/value/{value}", method = GET)
+    public List<Interest> findByValue(@PathVariable("value") String value) {
+        return interestDao.listAll().stream().filter(i -> i.getValue().contains(value)).collect(Collectors.toList());
+    }
 }
