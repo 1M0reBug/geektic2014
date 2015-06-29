@@ -2,13 +2,17 @@
 
 <html ng-app="geektic">
     <head>
+        <meta charset="utf-8"/>
         <title>Geektic</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
     </head>
     <body ng-controller="HelloCtrl">
-        <h1>{{ helloMessage.message }}</h1>
+        <div class="container">
+            <h1>{{ helloMessage.message }}</h1>
 
-        <pre ng-hide="userList"><code>{{userList.message}}</code></pre>
-        <button ng-click="loadFakeUsers" class="btn btn-default">Charger des utilisateurs</button>
+            <pre><code>{{userList}}</code></pre>
+            <button ng-click="loadFakeUsers()" class="btn btn-default">Charger des utilisateurs</button>
+        </div>
 
         <script src="/js/angular.js"></script>
         <script src="/js/angular-route.js"></script>

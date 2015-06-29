@@ -1,0 +1,27 @@
+{
+  "name": "geektic2015",
+  "version": "0.0.1",
+  "homepage": "https://github.com/1M0reBug/geektic2014",
+  "authors": [
+    "1M0reBug <jordan.quagliatini@gmail.com>"
+  ],
+  "description": "A J2EE exam",
+  "main": "index.html",
+  "keywords": [
+    "J2EE",
+    "java",
+    "JPA",
+    "Hibernate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies" : {
+    "bootstrap" : "*"
+  }
+}

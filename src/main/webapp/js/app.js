@@ -6,8 +6,10 @@ app.controller('HelloCtrl', function($scope, $http) {
     });
 
     $scope.loadFakeUsers = function() {
-        $http.get('/api/hello/users').success(function(user) {
+        $http.get('/api/users').success(function(user) {
            $scope.userList = user;
+        }).error(function(data) {
+            $scope.userlist = "A problem occurred";
         });
-    }
+    };
 });

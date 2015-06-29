@@ -1,4 +1,4 @@
-package com.ninja_squad.geektic.service;
+package com.ninja_squad.geektic.domain;
 
 /**
  * A fake hello message just to test that everything is fine

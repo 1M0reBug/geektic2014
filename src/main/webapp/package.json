@@ -1,0 +1,19 @@
+{
+  "name": "geektic2014",
+  "version": "0.0.1",
+  "description": "geektic2014",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1M0reBug/geektic2014.git"
+  },
+  "author": "1M0reBug",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/1M0reBug/geektic2014/issues"
+  },
+  "homepage": "https://github.com/1M0reBug/geektic2014",
+  "devDependencies" : {
+    "bower" : "*"
+  }
+}
