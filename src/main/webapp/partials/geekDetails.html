@@ -1,0 +1,21 @@
+<a ng-href="#/">Accueil <span class="glyphicon glyphicon-home"></span></a>
+<table class="table">
+    <tr>
+        <th>Prénom</th>
+        <th>Nom</th>
+        <th>Intérêts</th>
+        <th>Sexe</th>
+        <th>Age</th>
+    </tr>
+    <tr>
+        <td>{{user.name}}</td>
+        <td>{{user.surname}}</td>
+        <td>
+            <ul>
+                <li ng-repeat="interest in user.interests">{{interest.value}}</li>
+            </ul>
+        </td>
+        <td>{{user.sex}}</td>
+        <td>{{user.age}}</td>
+    </tr>
+</table>

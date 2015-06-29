@@ -27,6 +27,14 @@ CREATE TABLE USER_INTEREST (
   primary key(id_user,id_interest)
 );
 
+ALTER TABLE USER_INTEREST
+    ADD CONSTRAINT user_ui_fk FOREIGN KEY (id_user)
+    REFERENCES USER(id);
+
+ALTER TABLE USER_INTEREST
+    ADD CONSTRAINT interest_ui_fk FOREIGN KEY(id_interest)
+    REFERENCES INTEREST(id);
+
 create sequence user_seq start with 0;
 create sequence interest_seq start with 0;
 
@@ -58,4 +66,5 @@ INSERT INTO PUBLIC.INTEREST (value,id) VALUES ('non',90),('sapien,',91),('ultric
 
 /* User_INTEREST */
 INSERT INTO PUBLIC.USER_INTEREST (id_interest,id_user) VALUES (86,31), (86, 32), (86,33);
+INSERT INTO PUBLIC.USER_INTEREST (id_interest,id_user) VALUES (87, 32), (87, 33), (88, 31), (88, 33);
 

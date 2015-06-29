@@ -24,4 +24,5 @@ public class InterestDao {
 
         return query.getResultList();
     }
+
 }

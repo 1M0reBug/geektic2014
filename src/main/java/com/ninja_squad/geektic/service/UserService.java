@@ -5,14 +5,25 @@ import com.ninja_squad.geektic.domain.Sex;
 import com.ninja_squad.geektic.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
  * Created by jordan on 29/06/15.
  */
+@RestController
+@Transactional
+@RequestMapping("/api/users")
 @Service
 public class UserService {
 
@@ -43,7 +54,31 @@ public class UserService {
         return list;
     }
 
-    public List<User> findAll() {
-        return userDao.findAll();
+    @RequestMapping(method = RequestMethod.GET)
+    public List<User> findAll(HttpServletRequest request) {
+
+        String interests = request.getParameter("interests");
+
+        if (interests == null) {
+            return userDao.findAll();
+        } else {
+            String[] array;
+            array = interests.split(",");
+            List<User> list = userDao.findByInterestsValuesAndSex(array);
+            if(list.isEmpty()) {
+                throw new InterestNotFound();
+            } else {
+                return list;
+            }
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public User findById(@PathVariable("id") long id) {
+        Optional<User> opt = userDao.findAll().stream().filter(u -> u.getId() == id).findFirst();
+        if (opt.isPresent()) {
+            return opt.get();
+        }
+        throw new IdNotFound("l'utilisateur avec l'id" + id + "n'existe pas");
     }
 }

@@ -4,13 +4,21 @@ import com.ninja_squad.geektic.dao.InterestDao;
 import com.ninja_squad.geektic.domain.Interest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Created by jordan on 29/06/15.
  */
+@RestController
+@RequestMapping("/api/interests")
 @Service
 public class InterestService {
 
@@ -21,12 +29,13 @@ public class InterestService {
         interestDao = dao;
     }
 
+    @RequestMapping(method = GET)
     public List<Interest> findAll() {
         return interestDao.listAll();
     }
 
-    /*public List<Interest> findById(long id) {
-    }*/
-
-
+    @RequestMapping(value="/{id}", method = GET)
+    public List<Interest> findById(@PathVariable("id") long id) {
+        return interestDao.listAll().stream().filter(i -> i.getId() == id).collect(Collectors.toList());
+    }
 }
