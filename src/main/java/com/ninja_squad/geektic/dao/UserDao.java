@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Created by jordan on 29/06/15.
@@ -17,11 +17,12 @@ public class UserDao {
     @PersistenceContext
     private EntityManager em;
 
-    public Stream<User> listAll() {
-        String jpql = "Select u FROM User AS u order by u.name";
+    public List<User> findAll() {
+        String jpql;
+        jpql = "Select u FROM User AS u order by u.name";
         TypedQuery<User> query = em.createQuery(jpql, User.class);
 
-        return query.getResultList().stream();
+        return query.getResultList();
     }
 
 }

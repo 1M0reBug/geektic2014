@@ -2,13 +2,12 @@ package com.ninja_squad.geektic.service;
 
 import com.ninja_squad.geektic.dao.UserDao;
 import com.ninja_squad.geektic.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Created by jordan on 29/06/15.
@@ -18,10 +17,12 @@ public class UserService {
 
     private UserDao userDao;
 
-    public UserService() {
+    @Autowired
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
     }
 
-    public List<User> findAll() {
+    public List<User> fakeFindAll() {
         User u1 = new User();
         u1.setAge(23);
         u1.setName("Carlos");
@@ -37,5 +38,9 @@ public class UserService {
         list.add(u2);
 
         return list;
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 }
