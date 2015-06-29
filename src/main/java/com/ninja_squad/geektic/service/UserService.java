@@ -1,6 +1,7 @@
 package com.ninja_squad.geektic.service;
 
 import com.ninja_squad.geektic.dao.UserDao;
+import com.ninja_squad.geektic.domain.Sex;
 import com.ninja_squad.geektic.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,13 @@ public class UserService {
         u1.setAge(23);
         u1.setName("Carlos");
         u1.setSurname("Antonio");
+        u1.setSex(Sex.HOMME);
 
         User u2 = new User();
         u2.setAge(24);
         u2.setName("Michu");
         u2.setSurname("Jeanette");
+        u2.setSex(Sex.FEMME);
 
         List<User> list = new ArrayList<User>();
         list.add(u1);

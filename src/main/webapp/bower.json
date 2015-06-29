@@ -22,6 +22,8 @@
     "tests"
   ],
   "devDependencies" : {
-    "bootstrap" : "*"
+    "bootstrap" : "*",
+    "angular" : "*",
+    "angular-route" : "*"
   }
 }

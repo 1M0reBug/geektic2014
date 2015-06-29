@@ -18,10 +18,33 @@ public class User {
     private String surname;
     private int age;
 
-    @ManyToMany(mappedBy = "users")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sex")
+    private Sex sex;
+
+    @ManyToMany
+    @JoinTable(name = "USER_INTEREST",
+            joinColumns = @JoinColumn(name = "ID_USER"),
+            inverseJoinColumns = @JoinColumn(name = "ID_INTEREST"))
     private List<Interest> interests;
 
     public User() {
+    }
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public List<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
     }
 
     public long getId() {

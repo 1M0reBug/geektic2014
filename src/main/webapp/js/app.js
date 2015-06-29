@@ -1,15 +1,7 @@
-var app = angular.module("geektic", ['ngRoute']);
+var app = angular.module("geektic", ['ngRoute', 'GeekticCtrls']);
 
-app.controller('HelloCtrl', function($scope, $http) {
-    $http.get('/api/hello').success(function(helloMessage) {
-        $scope.helloMessage = helloMessage;
-    });
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider.when('/', {controller : "listGeeks", templateUrl : 'partials/geekList.html'})
+        .otherwise({redirectTo : "/"});
+}])
 
-    $scope.loadFakeUsers = function() {
-        $http.get('/api/users').success(function(user) {
-           $scope.userList = user;
-        }).error(function(data) {
-            $scope.userlist = "A problem occurred";
-        });
-    };
-});

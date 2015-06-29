@@ -16,11 +16,8 @@ public class Interest {
 
     private String value;
 
-    @ManyToMany
-    @JoinTable(name = "USER_INTERESTS",
-                joinColumns = @JoinColumn(name = "ID_USER"),
-                inverseJoinColumns = @JoinColumn(name = "ID_INTEREST"))
-    private List<User> users;
+
+    //private List<User> users;
 
     public Interest() {
     }
