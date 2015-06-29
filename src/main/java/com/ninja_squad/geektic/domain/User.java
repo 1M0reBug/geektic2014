@@ -19,8 +19,8 @@ public class User {
     private int age;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sex")
-    private Sex sex;
+    @Column(name = "gender")
+    private Gender gender;
 
     @ManyToMany
     @JoinTable(name = "USER_INTEREST",
@@ -31,12 +31,12 @@ public class User {
     public User() {
     }
 
-    public Sex getSex() {
-        return sex;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public List<Interest> getInterests() {

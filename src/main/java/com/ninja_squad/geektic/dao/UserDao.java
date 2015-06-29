@@ -1,6 +1,6 @@
 package com.ninja_squad.geektic.dao;
 
-import com.ninja_squad.geektic.domain.Sex;
+import com.ninja_squad.geektic.domain.Gender;
 import com.ninja_squad.geektic.domain.User;
 import org.springframework.stereotype.Repository;
 
@@ -32,23 +32,33 @@ public class UserDao {
         return query.getResultList();
     }
 
-    public List<User> findByInterestsValuesAndSex(String[] array) {
-
-        /* SELECT name, surname, value
-           from USER u JOIN USER_INTERESTS ui ON ui.user_id = u.id
-                       JOIN INTEREST i ON i.id = ui.id WHERE i.value = `$value`;
-         */
-        /*if(sex.equals("all")){
-            sex = "%";
-        }*/
-
+    public List<User> findByInterestsValues(String[] array) {
         List<User> list = new ArrayList<>();
-        String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE int.value in :value"; // AND u.sex LIKE :sex
+        String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE int.value in :value";
         TypedQuery<User> query = em.createQuery(jpql, User.class);
-        query.setParameter("value", Arrays.asList(array)); //.setParameter("sex", sex);
+        query.setParameter("value", Arrays.asList(array));
         list.addAll(query.getResultList());
 
         return list;
+    }
 
+    public List<User> findByInterestsValuesAndGender(String[] array, Gender gender) {
+        List<User> list = new ArrayList<>();
+        String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE u.gender LIKE :gender AND int.value in :value";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setParameter("value", Arrays.asList(array)).setParameter("gender", gender);
+        list.addAll(query.getResultList());
+
+        return list;
+    }
+
+    public List<User> findByGender(Gender gender) {
+        List<User> list = new ArrayList<>();
+        String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE u.gender LIKE :gender";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setParameter("gender", gender);
+        list.addAll(query.getResultList());
+
+        return list;
     }
 }

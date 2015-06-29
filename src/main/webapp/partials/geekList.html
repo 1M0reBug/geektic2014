@@ -1,10 +1,10 @@
 <form class="form-horizontal">
     <div class="form-group">
         <div class="col-sm-3">
-            <input type="checkbox" ng-model="query.sex" ng-true-value="'HOMME'">Homme</input>
+            <input type="checkbox" ng-model="query.gender" ng-true-value="'HOMME'">Homme</input>
         </div>
         <div class="col-sm-3">
-            <input type="checkbox" ng-model="query.sex" ng-true-value="'FEMME'">Femme</input>
+            <input type="checkbox" ng-model="query.gender" ng-true-value="'FEMME'">Femme</input>
         </div>
         <div class="col-sm-6">
             <div ng-hide="!interestsQuery"></div>
@@ -29,7 +29,7 @@
                 <li ng-repeat="interest in user.interests">{{interest.value}}</li>
             </ul>
         </td>
-        <td>{{user.sex}}</td>
+        <td>{{user.gender}}</td>
         <td>{{user.age}}</td>
     </tr>
 </table>
