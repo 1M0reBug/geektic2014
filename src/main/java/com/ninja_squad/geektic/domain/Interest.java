@@ -1,6 +1,7 @@
 package com.ninja_squad.geektic.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by jordan on 29/06/15.
@@ -14,6 +15,12 @@ public class Interest {
     private long id;
 
     private String value;
+
+    @ManyToMany
+    @JoinTable(name = "USER_INTERESTS",
+                joinColumns = @JoinColumn(name = "ID_USER"),
+                inverseJoinColumns = @JoinColumn(name = "ID_INTEREST"))
+    private List<User> users;
 
     public Interest() {
     }

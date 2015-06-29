@@ -1,24 +1,27 @@
 package com.ninja_squad.geektic.dao;
 
+import com.ninja_squad.geektic.domain.Interest;
 import com.ninja_squad.geektic.domain.User;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Created by jordan on 29/06/15.
  */
+@Repository
 public class InterestDao {
 
     @PersistenceContext
     private EntityManager em;
 
-    public Stream<User> listAll() {
-        String jpql = "Select u FROM User AS u order by u.name";
-        TypedQuery<User> query = em.createQuery(jpql, User.class);
+    public List<Interest> listAll() {
+        String jpql = "Select i FROM Interest AS i order by i.value";
+        TypedQuery<Interest> query = em.createQuery(jpql, Interest.class);
 
-        return query.getResultList().stream();
+        return query.getResultList();
     }
 }

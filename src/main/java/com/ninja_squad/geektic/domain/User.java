@@ -1,6 +1,7 @@
 package com.ninja_squad.geektic.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by jordan on 29/06/15.
@@ -16,6 +17,9 @@ public class User {
     private String name;
     private String surname;
     private int age;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Interest> interests;
 
     public User() {
     }
