@@ -1,7 +1,7 @@
 package com.ninja_squad.geektic.service;
 
 import com.ninja_squad.geektic.dao.InterestDao;
-import com.ninja_squad.geektic.domain.Interests;
+import com.ninja_squad.geektic.domain.Interest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,11 +18,24 @@ public class InterestService {
     public InterestService() {
     }
 
-    /*public List<Interests> findAll() {
-        return new ArrayList();
-    }*/
+    public List<Interest> findAll() {
+        List<Interest> list = new ArrayList<Interest>();
 
-    /*public List<Interests> findById(long id) {
+        Interest i1  = new Interest();
+        i1.setId(0);
+        i1.setValue("Java");
+
+        Interest i2 = new Interest();
+        i2.setId(1);
+        i2.setValue("PHP");
+
+        list.add(i1);
+        list.add(i2);
+
+        return list;
+    }
+
+    /*public List<Interest> findById(long id) {
     }*/
 
 

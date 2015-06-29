@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by jordan on 29/06/15.
  */
 @Entity
-public class Interests {
+public class Interest {
 
     @Id
     @SequenceGenerator(name = "interestSeq", sequenceName = "interest_seq")
@@ -15,7 +15,7 @@ public class Interests {
 
     private String value;
 
-    public Interests() {
+    public Interest() {
     }
 
     public String getValue() {
