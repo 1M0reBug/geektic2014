@@ -8,3 +8,5 @@ test-bin/
 *.iml
 MyDB.*
 /test-bin
+node_modules
+bowedr_components
