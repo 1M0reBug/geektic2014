@@ -1,13 +1,33 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-3">
+            <input type="checkbox" ng-model="query.sex" ng-true-value="'HOMME'">Homme</input>
+        </div>
+        <div class="col-sm-3">
+            <input type="checkbox" ng-model="query.sex" ng-true-value="'FEMME'">Femme</input>
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" ng-model="query.interests.value"  placeholder="filtrer par intérêts"/>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <tr>
         <th>Prénom</th>
         <th>Nom</th>
+        <th>Intérêts</th>
         <th>Sexe</th>
         <th>Age</th>
     </tr>
-    <tr ng-repeat="user in userList">
+    <tr ng-repeat="user in userList | filter:query">
         <td>{{user.name}}</td>
         <td>{{user.surname}}</td>
+        <td>
+            <ul>
+                <li ng-repeat="interest in user.interests">{{interest.value}}</li>
+            </ul>
+        </td>
         <td>{{user.sex}}</td>
         <td>{{user.age}}</td>
     </tr>

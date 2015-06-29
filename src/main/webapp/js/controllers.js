@@ -15,4 +15,16 @@ GeekCtrls.controller('listGeeks', function($scope, $http) {
     };
 
     $scope.loadUsers();
-})
+});
+
+GeekCtrls.controller('listInterests', function($scope, $http) {
+    $scope.loadInterests = function() {
+        $http.get('/api/interests').success(function(interests) {
+            $scope.interests = interests;
+        }).error(function(data) {
+            $scope.interests = "A problem occured";
+        });
+    };
+
+    $scope.loadInterests();
+});
