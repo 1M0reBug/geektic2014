@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by jordan on 29/06/15.
@@ -40,21 +41,21 @@ public class UserDao {
         return query.getResultList();
     }
 
-    public List<User> findByInterestsValues(String[] array) {
+    public List<User> findByInterestsValues(Set<String> array) {
         List<User> list = new ArrayList<>();
         String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE int.value in :value";
         TypedQuery<User> query = em.createQuery(jpql, User.class);
-        query.setParameter("value", Arrays.asList(array));
+        query.setParameter("value", array);
         list.addAll(query.getResultList());
 
         return list;
     }
 
-    public List<User> findByInterestsValuesAndGender(String[] array, Gender gender) {
+    public List<User> findByInterestsValuesAndGender(Set<String> array, Gender gender) {
         List<User> list = new ArrayList<>();
         String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE u.gender LIKE :gender AND int.value in :value";
         TypedQuery<User> query = em.createQuery(jpql, User.class);
-        query.setParameter("value", Arrays.asList(array)).setParameter("gender", gender);
+        query.setParameter("value", array).setParameter("gender", gender);
         list.addAll(query.getResultList());
 
         return list;

@@ -8,16 +8,14 @@ import com.ninja_squad.geektic.service.exceptions.IdNotFound;
 import com.ninja_squad.geektic.service.exceptions.InterestNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 /**
@@ -57,46 +55,21 @@ public class UserService {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<User> findAll(HttpServletRequest request) {
+    public List<User> findAll(@RequestParam(value = "interest", required = false) Set<String> interests,
+                              @RequestParam(value = "gender", required = false) Gender gender) {
 
-        String interests = request.getParameter("interests");
-        String stringGender = request.getParameter("gender");
-        Gender gender = null;
-        if (stringGender != null) {
-            if (stringGender.equals("HOMME")) {
-                gender = Gender.HOMME;
-            } else if (stringGender.equals("FEMME")) {
-                gender = Gender.FEMME;
-            }
-        }
 
         if (interests == null && gender == null) {
             return userDao.findAll();
         } else if (gender == null) {
-            String[] array;
-            array = interests.split(",");
-            List<User> list = userDao.findByInterestsValues(array);
-            if (list.isEmpty()) {
-                throw new InterestNotFound();
-            } else {
-                return list;
-            }
+
+            return userDao.findByInterestsValues(interests);
         } else if (interests == null) {
-            List<User> list = userDao.findByGender(gender);
-            if (list.isEmpty()) {
-                throw new GenderNotFound();
-            } else {
-                return list;
-            }
+
+            return userDao.findByGender(gender);
         } else {
-            String[] array;
-            array = interests.split(",");
-            List<User> list = userDao.findByInterestsValuesAndGender(array, gender);
-            if (list.isEmpty()) {
-                throw new InterestNotFound();
-            } else {
-                return list;
-            }
+
+            return userDao.findByInterestsValuesAndGender(interests, gender);
         }
     }
 

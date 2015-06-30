@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
@@ -39,49 +41,34 @@ public class UserServiceTest {
 
     @Test
     public void whenNoGenderIsGivenToFindAllThenOnlySearchByInterests() {
-        HttpServletRequest request;
-        request = mock(HttpServletRequest.class);
-
         String requestInterests = "sit";
-        String[] interests = requestInterests.split(",");
 
-        when(request.getParameter("interests")).thenReturn(requestInterests);
-
-        userService.findAll(request);
+        Set<String> interests = new HashSet<>();
+        interests.add("sit");
+        interests.add("ac");
+        userService.findAll(interests, null);
 
         verify(dao).findByInterestsValues(interests);
     }
 
     @Test
     public void whenNoInterestIsGivenToFindAllThenOnlySearchByGender() {
-        HttpServletRequest request;
-        request = mock(HttpServletRequest.class);
 
-        String requestGender = "FEMME";
         Gender gender = Gender.FEMME;
 
-        when(request.getParameter("gender")).thenReturn(requestGender);
-
-        userService.findAll(request);
+        userService.findAll(null, gender);
 
         verify(dao).findByGender(gender);
     }
 
     @Test
     public void whenGenderAndInterestsAreGivenFindAllByGenderAndInterests() {
-        HttpServletRequest request;
-        request = mock(HttpServletRequest.class);
+        Set<String> interests = new HashSet<>();
+        interests.add("sit");
+        interests.add("ac");
 
-        String requestInterests = "sit,ac";
-        String[] interests = requestInterests.split(",");
-
-        String requestGender = "FEMME";
         Gender gender = Gender.FEMME;
-
-        when(request.getParameter("interests")).thenReturn(requestInterests);
-        when(request.getParameter("gender")).thenReturn(requestGender);
-
-        userService.findAll(request);
+        userService.findAll(interests, gender);
 
         verify(dao).findByInterestsValuesAndGender(interests, gender);
     }

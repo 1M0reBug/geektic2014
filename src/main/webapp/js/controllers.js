@@ -44,16 +44,19 @@ GeekCtrls.controller('listGeeks', function ($scope, $http, $location) {
     }
 
     $scope.searchSelectedInterests = function () {
-        var interestsQueryString = $scope.selectedInterests.join(',');
+        var interestsQueryString = $scope.selectedInterests
         var gender = $scope.query.gender;
         var url = '';
         var baseUrl = '/api/users';
         if (interestsQueryString.length > 0) {
-            url += baseUrl + '?interests=' + interestsQueryString;
+            url += baseUrl + '?interest=' + interestsQueryString[0];
+            for(var i = 1; i < interestsQueryString.length; i++) {
+                url += '&interest=' + interestsQueryString[i];
+            }
         }
         if (gender == 'HOMME' || gender == 'FEMME') {
             if (url.length == 0) {
-                url += basUrl + '?gender=' + gender;
+                url += baseUrl + '?gender=' + gender;
             } else {
                 url += '&gender=' + gender;
             }
@@ -84,6 +87,7 @@ GeekCtrls.controller('geekDetails', function ($scope, $http, $routeParams) {
     $scope.loadUserDetails = function () {
         $http.get('/api/users/' + $routeParams.id).success(function (user) {
             $scope.user = user;
+            $scope.image = GeoPattern.generate(user.name + user.surname).toDataUrl();
         }).error(function (data) {
             $scope.user = "A problem occurred";
         });
