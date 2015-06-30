@@ -32,6 +32,14 @@ public class UserDao {
         return query.getResultList();
     }
 
+    public List<User> findById(long id) {
+        String jpql = "Select u FROM User AS u where id = :id";
+        TypedQuery<User> query = em.createQuery(jpql, User.class);
+        query.setParameter("id", id);
+
+        return query.getResultList();
+    }
+
     public List<User> findByInterestsValues(String[] array) {
         List<User> list = new ArrayList<>();
         String jpql = "Select distinct u FROM User u LEFT JOIN u.interests int WHERE int.value in :value";

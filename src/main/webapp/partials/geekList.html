@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-4">
             <div ng-hide="!selectedInterests">
-                <span ng-repeat="item in selectedInterests">{{item}} </span>
+                <span ng-repeat="item in selectedInterests" class="label label-primary alert-dismissible fade in" ng-click="removeElement(item)">{{item}} <button class="close"><span class="glyphicon glyphicon-remove"></span></button></span>
             </div>
 
             <autocomplete data="interests" on-type="filterInterest" on-select="addElement" ng-model="query.interests" attr-placeholder="filtrer par intérêts"></autocomplete>

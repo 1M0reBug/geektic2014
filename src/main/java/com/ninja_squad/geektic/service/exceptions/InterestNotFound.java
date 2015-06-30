@@ -1,4 +1,4 @@
-package com.ninja_squad.geektic.service;
+package com.ninja_squad.geektic.service.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

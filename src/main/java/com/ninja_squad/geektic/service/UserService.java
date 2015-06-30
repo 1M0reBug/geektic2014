@@ -3,6 +3,9 @@ package com.ninja_squad.geektic.service;
 import com.ninja_squad.geektic.dao.UserDao;
 import com.ninja_squad.geektic.domain.Gender;
 import com.ninja_squad.geektic.domain.User;
+import com.ninja_squad.geektic.service.exceptions.GenderNotFound;
+import com.ninja_squad.geektic.service.exceptions.IdNotFound;
+import com.ninja_squad.geektic.service.exceptions.InterestNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -100,9 +103,9 @@ public class UserService {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User findById(@PathVariable("id") long id) {
-        Optional<User> opt = userDao.findAll().stream().filter(u -> u.getId() == id).findFirst();
-        if (opt.isPresent()) {
-            return opt.get();
+        List<User> user = userDao.findById(id);
+        if (!user.isEmpty()) {
+            return user.get(0);
         }
         throw new IdNotFound("l'utilisateur avec l'id" + id + "n'existe pas");
     }
